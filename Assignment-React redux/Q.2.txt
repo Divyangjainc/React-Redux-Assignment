@@ -1,0 +1,4 @@
+Q.2.What is Redux Thunk used for ?
+Ans.Redux Thunk is a middleware for Redux that allows you to write action creators that return functions instead
+of plain objects. These functions, often called "thunks," can handle asynchronous logic like fetching data from an
+API or performing other side effects before dispatching actions to update the Redux store.

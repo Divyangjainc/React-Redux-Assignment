@@ -1,0 +1,5 @@
+Q.1.What is Redux ?
+Ans.Redux is a predictable state container for JavaScript applications. It provides a centralized store to manage an
+application's state, making it easier to maintain, debug, and test, especially as the application grows in
+complexity. Redux is often used with React (through React-Redux), but it can be used with other JavaScript
+frameworks or libraries as well.
