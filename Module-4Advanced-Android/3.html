@@ -1,0 +1,77 @@
+//3.Create an application to suggest places as user type with help of Place autocomplete service provide by Google//
+<!DOCTYPE html>
+<html>
+<head>
+<title>Place Autocomplete with Marker</title>
+<style>
+    #map {
+    height: 80vh;
+    width: 100%;
+    }
+
+    #search-box {
+    width: 50%;
+    margin: 10px;
+    font-size: 18px;
+    padding: 10px;
+    }
+</style>
+</head>
+<body>
+
+<input id="search-box" type="text" placeholder="Search for a place..." />
+
+<div id="map"></div>
+
+<script>
+    let map;
+    let marker;
+    let autocomplete;
+
+    function initMap() {
+      // Default location (India)
+    const defaultLocation = { lat: 20.5937, lng: 78.9629 };
+
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: defaultLocation,
+        zoom: 5,
+    });
+
+    const input = document.getElementById("search-box");
+
+      // Bind autocomplete to input box
+    autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo("bounds", map);
+
+    autocomplete.setFields(["geometry", "name"]);
+
+    autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+
+        if (!place.geometry || !place.geometry.location) {
+        alert("No details available for the input: '" + place.name + "'");
+        return;
+        }
+
+        // Zoom and center the map
+        map.setCenter(place.geometry.location);
+        map.setZoom(15);
+
+        // Place a marker
+        if (marker) marker.setMap(null);
+
+        marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        title: place.name,
+        });
+    });
+    }
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+//4.Write a code to rotate image and blink image//
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rotate and Blink Image</title>
+<style>
+    #rotateImage {
+    width: 200px;
+    height: 200px;
+    animation: rotate 4s linear infinite;
+    }
+
+    #blinkImage {
+    width: 200px;
+    height: 200px;
+    animation: blink 1s step-start 0s infinite;
+    }
+
+    @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+    }
+
+    @keyframes blink {
+    50% { opacity: 0; }
+    }
+
+    .hidden {
+    display: none;
+    }
+
+    .controls {
+    margin: 20px 0;
+    }
+</style>
+</head>
+<body>
+
+<h2>Rotating Image</h2>
+<img id="rotateImage" src="https://via.placeholder.com/200" alt="Rotating">
+
+<h2>Blinking Image</h2>
+<img id="blinkImage" src="https://via.placeholder.com/200" alt="Blinking">
+
+<div class="controls">
+    <button onclick="toggleRotation()">Toggle Rotation</button>
+    <button onclick="toggleBlink()">Toggle Blink</button>
+</div>
+
+<script>
+    function toggleRotation() {
+    const img = document.getElementById("rotateImage");
+    img.style.animationPlayState = img.style.animationPlayState === "paused" ? "running" : "paused";
+    }
+
+    function toggleBlink() {
+    const img = document.getElementById("blinkImage");
+    img.classList.toggle("hidden");
+    setTimeout(() => {
+        img.classList.toggle("hidden");
+    }, 500);
+    }
+</script>
+
+</body>
+</html>

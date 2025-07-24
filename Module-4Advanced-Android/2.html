@@ -1,0 +1,74 @@
+//2.Create an application to input address and display marker on that address//
+<!DOCTYPE html>
+<html>
+<head>
+<title>Address to Marker on Google Map</title>
+<style>
+    #map {
+    height: 80vh;
+    width: 100%;
+    }
+    #controls {
+    margin: 10px;
+    }
+    input, button {
+    padding: 10px;
+    font-size: 16px;
+    }
+</style>
+</head>
+<body>
+
+<div id="controls">
+    <input type="text" id="addressInput" placeholder="Enter an address" size="50">
+    <button onclick="geocodeAddress()">Show on Map</button>
+</div>
+
+<div id="map"></div>
+
+<script>
+    let map;
+    let geocoder;
+    let marker;
+
+    function initMap() {
+      // Default center
+      const defaultLocation = { lat: 20.5937, lng: 78.9629 }; // Center of India
+
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+        center: defaultLocation
+    });
+
+    geocoder = new google.maps.Geocoder();
+    }
+
+    function geocodeAddress() {
+    const address = document.getElementById("addressInput").value;
+
+    geocoder.geocode({ address: address }, function(results, status) {
+        if (status === "OK") {
+        map.setCenter(results[0].geometry.location);
+        map.setZoom(15);
+
+        if (marker) {
+            marker.setMap(null); // Remove old marker
+        }
+
+        marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            title: address
+        });
+        } else {
+        alert("Geocode was not successful for the following reason: " + status);
+        }
+    });
+    }
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+</script>
+</body>
+</html>

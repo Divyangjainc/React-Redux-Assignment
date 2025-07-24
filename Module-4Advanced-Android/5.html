@@ -1,0 +1,116 @@
+//5.Write a code to move image from one place to another place Write a code to zoom in / out image using animation//
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Move and Zoom Image with Animation</title>
+<style>
+    body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 40px;
+    }
+
+    #imageBox {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    }
+
+    #movingImage {
+    width: 150px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    transition: all 1s ease;
+    }
+
+    .controls {
+    margin-top: 20px;
+    }
+
+    button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    }
+
+    /* Zoom animation */
+    #zoomImage {
+    width: 150px;
+    transition: transform 0.5s ease;
+    }
+
+    .zoom-in {
+    transform: scale(1.5);
+    }
+
+    .zoom-out {
+    transform: scale(0.5);
+    }
+</style>
+</head>
+<body>
+
+<h2>Move Image</h2>
+<div id="imageBox">
+    <img id="movingImage" src="https://via.placeholder.com/150" alt="Moving Image">
+</div>
+
+<div class="controls">
+    <button onclick="moveToLeft()">Move Left</button>
+    <button onclick="moveToRight()">Move Right</button>
+    <button onclick="moveToTop()">Move Top</button>
+    <button onclick="moveToBottom()">Move Bottom</button>
+</div>
+
+<h2>Zoom Image</h2>
+<img id="zoomImage" src="https://via.placeholder.com/150" alt="Zoomable Image">
+
+<div class="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset Zoom</button>
+</div>
+
+<script>
+    const img = document.getElementById("movingImage");
+
+    function moveToLeft() {
+    img.style.left = "50px";
+    }
+
+    function moveToRight() {
+    img.style.left = "400px";
+    }
+
+    function moveToTop() {
+    img.style.top = "10px";
+    }
+
+    function moveToBottom() {
+    img.style.top = "200px";
+    }
+
+    // Zoom functions
+    const zoomImg = document.getElementById("zoomImage");
+
+    function zoomIn() {
+    zoomImg.classList.add("zoom-in");
+    zoomImg.classList.remove("zoom-out");
+    }
+
+    function zoomOut() {
+    zoomImg.classList.add("zoom-out");
+    zoomImg.classList.remove("zoom-in");
+    }
+
+    function resetZoom() {
+    zoomImg.classList.remove("zoom-in", "zoom-out");
+    }
+</script>
+
+</body>
+</html>

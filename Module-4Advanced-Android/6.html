@@ -1,0 +1,85 @@
+//6.Write a code to show progress frame by frame animation and set animation on splash screen with app logo.//
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Animated Splash Screen</title>
+<style>
+    * {
+    box-sizing: border-box;
+    }
+
+    body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+    background-color: #111;
+    }
+
+    #splash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    }
+
+    #logo {
+    width: 150px;
+    height: 150px;
+      background-image: url('https://via.placeholder.com/150'); /* Replace with app logo */
+    background-size: cover;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    animation: spin 1s steps(12) infinite;
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    #progressContainer {
+    width: 80%;
+    background: #444;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 20px;
+    }
+
+    #progressBar {
+    height: 100%;
+    width: 0%;
+    background: #00e676;
+    transition: width 0.2s ease-in-out;
+    }
+</style>
+</head>
+<body>
+
+<div id="splash">
+    <div id="logo"></div>
+    <div id="progressContainer">
+    <div id="progressBar"></div>
+    </div>
+</div>
+
+<script>
+    let progress = 0;
+    const progressBar = document.getElementById("progressBar");
+
+    const interval = setInterval(() => {
+    if (progress >= 100) {
+        clearInterval(interval);
+        document.body.innerHTML = "<h1 style='text-align:center; margin-top: 40vh; color:white;'>App Loaded!</h1>";
+    } else {
+        progress += 2;
+        progressBar.style.width = progress + "%";
+    }
+    }, 100); // update every 100ms
+</script>
+
+</body>
+</html>
