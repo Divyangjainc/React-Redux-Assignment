@@ -1,0 +1,67 @@
+//1.Create an application to play song from raw resource folder//
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnPlayPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play" />
+</LinearLayout>
+
+
+using Android.App;
+using Android.OS;
+using Android.Widget;
+using Android.Media;
+
+namespace AudioPlayerApp
+{
+    [Activity(Label = "AudioPlayerApp", MainLauncher = true)]
+    public class MainActivity : Activity
+    {
+        MediaPlayer mediaPlayer;
+        Button btnPlayPause;
+        bool isPlaying = false;
+
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.activity_main);
+
+            btnPlayPause = FindViewById<Button>(Resource.Id.btnPlayPause);
+
+            mediaPlayer = MediaPlayer.Create(this, Resource.Raw.mysong);
+
+            btnPlayPause.Click += delegate {
+                if (isPlaying)
+                {
+                    mediaPlayer.Pause();
+                    btnPlayPause.Text = "Play";
+                }
+                else
+                {
+                    mediaPlayer.Start();
+                    btnPlayPause.Text = "Pause";
+                }
+                isPlaying = !isPlaying;
+            };
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (mediaPlayer != null)
+            {
+                mediaPlayer.Release();
+                mediaPlayer = null;
+            }
+        }
+    }
+}
